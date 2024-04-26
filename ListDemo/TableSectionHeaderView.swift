@@ -10,9 +10,15 @@ import UIKit
 // Step 3.
 class TableSectionHeaderView: UITableViewHeaderFooterView {
 
+    private enum Constants {
+        static let xInset: CGFloat = 20
+        static let yInset: CGFloat = 10
+        static let numberOfLines = 0
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = Constants.numberOfLines
         label.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,10 +28,10 @@ class TableSectionHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.yInset),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.xInset),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.xInset),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.yInset),
         ])
     }
     

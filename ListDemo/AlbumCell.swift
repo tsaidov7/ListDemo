@@ -9,7 +9,13 @@ import UIKit
 
 // Step 7.
 class AlbumCell: UICollectionViewCell {
-    
+
+    private enum Constants {
+        static let cornerRadius: CGFloat = 10
+        static let borderWidth: CGFloat = 2
+        static let sideInset: CGFloat = 20
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -19,13 +25,13 @@ class AlbumCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.borderColor = UIColor.purple.cgColor
-        layer.borderWidth = 2
-        layer.cornerRadius = 10
+        layer.borderWidth = Constants.borderWidth
+        layer.cornerRadius = Constants.cornerRadius
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sideInset),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sideInset)
         ])
     }
     

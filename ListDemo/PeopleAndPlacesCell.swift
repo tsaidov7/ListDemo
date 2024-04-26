@@ -9,11 +9,17 @@ import UIKit
 
 class PeopleAndPlacesCell: UITableViewCell {
 
+    private enum Constants {
+        static let minimumLineSpacing: CGFloat = 10
+        static let sideInset: CGFloat = 20
+        static let numberOfLines = 0
+    }
+
     private lazy var layout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 10
-        layout.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+        layout.minimumLineSpacing = Constants.minimumLineSpacing
+        layout.sectionInset = .init(top: 0, left: Constants.sideInset, bottom: 0, right: Constants.sideInset)
         return layout
     }()
 

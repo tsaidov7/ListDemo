@@ -9,6 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private enum Constants {
+        static let estimatedHeight: CGFloat = 44
+    }
+
     // Step 2.
     private lazy var tableHeaderView: UIView = {
         let view = TableHeaderView()
@@ -22,7 +26,7 @@ class ViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped) // Step 3. UITableView() -> UITableView(frame:style:)
         tableView.backgroundColor = .systemBackground
         tableView.tableHeaderView = tableHeaderView // Step 2.
-        tableView.estimatedSectionHeaderHeight = 44 // Step 3.
+        tableView.estimatedSectionHeaderHeight = Constants.estimatedHeight // Step 3.
         tableView.register(TableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "TableSectionHeaderViewId") // Step 3.
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCellId")
         tableView.register(MyAlbumsCell.self, forCellReuseIdentifier: "MyAlbumsCellId") // Step 5.
@@ -115,7 +119,7 @@ extension ViewController: UITableViewDelegate {
             return (tableView.bounds.height * 0.25) - 5
         }
 
-        return 44
+        return Constants.estimatedHeight
     }
 
     // Step 3.
