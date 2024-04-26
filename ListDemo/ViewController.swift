@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped) // Step 3. UITableView() -> UITableView(frame:style:)
         tableView.backgroundColor = .systemBackground
         tableView.tableHeaderView = tableHeaderView // Step 2.
+        tableView.estimatedSectionHeaderHeight = 44 // Step 3.
         tableView.register(TableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "TableSectionHeaderViewId") // Step 3.
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCellId")
         tableView.register(MyAlbumsCell.self, forCellReuseIdentifier: "MyAlbumsCellId") // Step 5.
@@ -46,6 +47,8 @@ class ViewController: UIViewController {
     }
 
     // Step 2.
+    // https://stackoverflow.com/questions/20982558/how-do-i-set-the-height-of-tableheaderview-uitableview-with-autolayout
+    // https://stackoverflow.com/questions/5581116/how-to-set-the-height-of-table-header-in-uitableview
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let targetHeight = tableHeaderView.systemLayoutSizeFitting(
