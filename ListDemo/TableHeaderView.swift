@@ -8,7 +8,9 @@
 import UIKit
 
 // Step 2.
-class TableHeaderView: UIView {
+final class TableHeaderView: UIView {
+
+    // MARK: - Private Properties
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -18,15 +20,11 @@ class TableHeaderView: UIView {
         return label
     }()
 
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
-        ])
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +36,27 @@ class TableHeaderView: UIView {
         titleLabel.preferredMaxLayoutWidth = titleLabel.bounds.width
     }
 
-    func setup(wth text: String) {
+    // MARK: - Internal
+
+    func configure(with text: String) {
         titleLabel.text = text
+    }
+
+    // MARK: - Private
+
+    private func setup() {
+        addSubview(titleLabel)
+        let constraints = [
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+        ]
+        // Does not play well with Autolayout.
+        // https://samwize.com/2015/11/06/guide-to-customizing-uitableview-section-header-footer/
+        constraints.forEach {
+            $0.priority = UILayoutPriority(999)
+        }
+        NSLayoutConstraint.activate(constraints)
     }
 }

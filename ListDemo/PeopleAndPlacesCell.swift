@@ -7,13 +7,18 @@
 
 import UIKit
 
-class PeopleAndPlacesCell: UITableViewCell {
+// Step 8.
+final class PeopleAndPlacesCell: UITableViewCell {
+
+    // MARK: - Private Structures
 
     private enum Constants {
         static let minimumLineSpacing: CGFloat = 10
         static let sideInset: CGFloat = 20
         static let numberOfLines = 0
     }
+
+    // MARK: - Private Properties
 
     private lazy var layout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -35,8 +40,25 @@ class PeopleAndPlacesCell: UITableViewCell {
         return collectionView
     }()
 
+    // MARK: - Lifecycle
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        print("🍏 PeopleAndPlacesCell", frame.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
+//    }
+
+    // MARK: - Private
+
+    private func setup() {
         selectionStyle = .none
         contentView.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -46,11 +68,9 @@ class PeopleAndPlacesCell: UITableViewCell {
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension PeopleAndPlacesCell: UICollectionViewDataSource {
 
@@ -64,10 +84,13 @@ extension PeopleAndPlacesCell: UICollectionViewDataSource {
         else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "DefaultCellId", for: indexPath)
         }
-        cell.setup(wth: String(describing: indexPath))
+        
+        cell.configure(wth: String(describing: indexPath))
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension PeopleAndPlacesCell: UICollectionViewDelegateFlowLayout {
 

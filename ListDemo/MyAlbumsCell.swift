@@ -8,7 +8,9 @@
 import UIKit
 
 // Step 5.
-class MyAlbumsCell: UITableViewCell {
+final class MyAlbumsCell: UITableViewCell {
+
+    // MARK: - Private Structures
 
     private enum Constants {
         static let spacing: CGFloat = 10
@@ -16,11 +18,17 @@ class MyAlbumsCell: UITableViewCell {
         static let numberOfLines: CGFloat = 2
     }
 
+    // MARK: - Private Properties
+
     private lazy var layout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = Constants.spacing
         layout.minimumInteritemSpacing = Constants.spacing
+        // Свойство estimatedItemSize объекта UICollectionViewFlowLayout используется, когда ячейки имеют динамически изменяемый размер. Приблизительное значение позволяет collection view отложить некоторые вычисления для определения фактического размера содержимого. Предполагается, что ячейки, которые не отображаются на экране, имеют расчетную высоту.
+        // Установка значения, отличного от нулевого, например, automaticSize, приводит к тому, что collection view запрашивает у каждой ячейки ее фактический размер, позволяя им использовать self-sizing с помощью метода preferredLayoutAttributesFitting(_:).
+        // https://stackoverflow.com/questions/40019875/set-collectionview-size-sizeforitematindexpath-function-is-not-working-swift
+//        layout.estimatedItemSize
         layout.sectionInset = .init(top: 0, left: Constants.sideInset, bottom: 0, right: Constants.sideInset)
         return layout
     }()
@@ -37,8 +45,25 @@ class MyAlbumsCell: UITableViewCell {
         return collectionView
     }()
 
+    // MARK: - Lifecycle
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        print("🍏 MyAlbumsCell", frame.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
+//    }
+
+    // MARK: - Private
+
+    private func setup() {
         selectionStyle = .none
         contentView.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -48,11 +73,9 @@ class MyAlbumsCell: UITableViewCell {
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension MyAlbumsCell: UICollectionViewDataSource {
 
@@ -71,10 +94,12 @@ extension MyAlbumsCell: UICollectionViewDataSource {
 //        cell.layer.borderColor = UIColor.purple.cgColor
 //        cell.layer.borderWidth = 2
 //        cell.layer.cornerRadius = 10
-        cell.setup(wth: String(describing: indexPath))
+        cell.configure(wth: String(describing: indexPath))
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 // Step 6.
 extension MyAlbumsCell: UICollectionViewDelegateFlowLayout {
