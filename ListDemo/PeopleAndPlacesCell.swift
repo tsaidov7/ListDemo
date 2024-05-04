@@ -53,7 +53,7 @@ final class PeopleAndPlacesCell: UITableViewCell {
 
 //    override func layoutSubviews() {
 //        super.layoutSubviews()
-//        print("🍏 PeopleAndPlacesCell", frame.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
+//        print("🍏 PeopleAndPlacesCell", bounds.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
 //    }
 
     // MARK: - Private

@@ -58,7 +58,7 @@ final class MyAlbumsCell: UITableViewCell {
 
 //    override func layoutSubviews() {
 //        super.layoutSubviews()
-//        print("🍏 MyAlbumsCell", frame.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
+//        print("🍏 MyAlbumsCell", bounds.size, sizeThatFits(.init(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)), systemLayoutSizeFitting(.init(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)))
 //    }
 
     // MARK: - Private
